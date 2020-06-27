@@ -46,9 +46,29 @@ for (const item of itemsToCollect) {
     item.addEventListener("click", handleSelectedItem)
 }
 
+const collectedItems = document.querySelector("input[name=items]")
+let selectedItems = []
+
 function handleSelectedItem(event) {
     const itemLi = event.target
     itemLi.classList.toggle("selected")
-    const itemId = event.target.dataset.id
+    const itemId = itemLi.dataset.id
+    const alreadySelected = selectedItems.findIndex( item => {
+        const itemFound = item == itemId //isso será true ou false
+        return itemFound
+    })
 
+    if(alreadySelected >= 0 ) {
+        const filteredItems = selectedItems.filter( item => {
+            const itemIsDifferent = item != itemId
+            return itemIsDifferent
+    })
+
+    selectedItems = filteredItems
+    } else {
+        selectedItems.push(itemId)
+    }
+
+    collectedItems.value = selectedItems
 }
+
