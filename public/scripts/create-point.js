@@ -1,9 +1,9 @@
 function populateUFs() {
     const ufSelect = document.querySelector("select[name=uf]")
     fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados")
-    .then( res => res.json() )
-    .then( states => {
-        for( const state of states) {
+    .then(res => res.json())
+    .then(states => {
+        for (const state of states) {
             ufSelect.innerHTML += `<option value="${state.id}">${state.nome}</option>`
 
         }
@@ -23,13 +23,13 @@ function getCities(event) {
 
     const url = `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${ufValue}/municipios`
 
-    citySelect.innerHTM = "<option value>Selecione a Cidade</option>"
+    citySelect.innerHTML = "<option value>Selecione a Cidade</option>"
     citySelect.disabled = true
 
-    fetch(url)
-    .then( res => res.json() )
-    .then( cities => {
-        for( const city of cities) {
+    fetch (url)
+    .then (res => res.json())
+    .then (cities => {
+        for (const city of cities) {
             citySelect.innerHTML += `<option value="${city.nome}">${city.nome}</option>`
         }
         citySelect.disabled = false
@@ -57,18 +57,14 @@ function handleSelectedItem(event) {
         const itemFound = item == itemId //isso será true ou false
         return itemFound
     })
-
-    if(alreadySelected >= 0 ) {
+    if (alreadySelected >= 0) {
         const filteredItems = selectedItems.filter( item => {
             const itemIsDifferent = item != itemId
             return itemIsDifferent
-    })
-
-    selectedItems = filteredItems
+         })
+        selectedItems = filteredItems
     } else {
         selectedItems.push(itemId)
     }
-
     collectedItems.value = selectedItems
 }
-
