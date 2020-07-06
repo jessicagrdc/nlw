@@ -53,6 +53,7 @@ function handleSelectedItem(event) {
     const itemLi = event.target
     itemLi.classList.toggle("selected")
     const itemId = itemLi.dataset.id
+    console.log('ITEM ID: ', itemId)
     const alreadySelected = selectedItems.findIndex( item => {
         const itemFound = item == itemId //isso será true ou false
         return itemFound
@@ -66,5 +67,6 @@ function handleSelectedItem(event) {
     } else {
         selectedItems.push(itemId)
     }
+    console.log('selectedItems: ', selectedItems)
     collectedItems.value = selectedItems
 }
