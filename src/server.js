@@ -49,23 +49,21 @@ server.post("/savepoint", (req, res) => {
     ]
 
     function afterInsertData(err) {
-    if (err) {
-        return console.log(err)
+        if (err) {
+            return console.log(err)
+            return res.send("Erro no cadastro!")
+        }
+
+        console.log("Cadastrado com sucesso")
+        console.log(this)
+
+        return res.render("create-point.html", { saved: true })
     }
-
-    console.log("Cadastrado com sucesso")
-    console.log(this)
-
-    return res.render("create-point.html", { saved: true })
-    }
-
-    db.run(query, values, afterInsertData)
-
-    
+        db.run(query, values, afterInsertData)    
 })
 
-
 server.get("/search", (req, res) => {
+<<<<<<< HEAD
 <<<<<<< HEAD
     //pegar os dados do banco de dados
     db.all(`SELECT name FROM places`, function (err, rows) {
@@ -76,13 +74,21 @@ server.get("/search", (req, res) => {
         })       
 =======
     // pegar os dados do banco de dados
+=======
+>>>>>>> 17afe44af7471452cf89f16db49e2436e123350b
 
-    db.all(`SELECT * FROM places`, function (err, rows) {
+    const search = req.query.search
+
+    if(search == "") {
+        return res.render("search-results.html", { total: 0 })
+    }
+
+    db.all(`SELECT * FROM places WHERE city LIKE '%${search}%'`, function (err, rows) {
         if (err) {
             return console.log(err)
         }
         const total = rows.length
-        return res.render("search-results.html", { places: rows, total })
+        return res.render("search-results.html", { places: rows, total: total })
     })
 
 >>>>>>> ec6ecee605bd93ab23a82fefabf31f75a7029fba
